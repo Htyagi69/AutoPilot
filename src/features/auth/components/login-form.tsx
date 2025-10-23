@@ -88,12 +88,15 @@ import { authClient } from "@/lib/auth-client"
                                       className="w-full"
                                       type="button"
                                       disabled={isPending}>
+                                        <Image alt="Github" src="/images/github.svg" width={20} height={20}/>
                                         Continue with Github 
                                       </Button>
                                       <Button variant={"destructive"} 
                                       className="w-full"
                                       type="button"
                                       disabled={isPending}>
+                                       <Image alt="Google" src="/images/google.svg" width={20} height={20}/>
+
                                         Continue with Google 
                                       </Button>
                                  </div>
