@@ -34,3 +34,55 @@ export const useCreateWorkflow=()=>{
           })
        )
 }
+
+//Hook to remove the workflow
+
+export const useRemoveWorkflow=()=>{
+     const trpc=useTRPC();
+     const queryClient=useQueryClient();
+
+     return useMutation(
+          trpc.workflows.remove.mutationOptions({
+               onSuccess:(data)=>{
+                    toast.success(`Workflow "${data.name}" removed`)
+                  queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
+                  queryClient.invalidateQueries(
+                    trpc.workflows.getOne.queryFilter({id:data.id}),
+                  )
+               }
+          })
+     )
+}
+
+// Hook to fetch a single workflow using suspense
+
+export const useSuspenseWorkflow=(id:string)=>{
+     const trpc=useTRPC();
+     return useSuspenseQuery(trpc.workflows.getOne.queryOptions({
+          id
+     }));
+}
+
+//Hook to update workflow name
+
+export const useUpdateWorkflowName=()=>{
+       const queryClient=useQueryClient();
+       const trpc=useTRPC();
+
+       return useMutation(
+          trpc.workflows.updateName.mutationOptions({
+               onSuccess:(data)=>{
+                    toast.success(`Workflow"${data.name}" updated`);
+                    queryClient.invalidateQueries(
+                         trpc.workflows.getMany.queryOptions({}),
+                    );
+                    queryClient.invalidateQueries(
+                         trpc.workflows.getOne.queryOptions({id:data.id})
+                    )
+               },
+             onError:(err)=>{
+                  toast.error(`Failed to update workflow name:${err.message}`);
+             }
+          })
+       )
+}
