@@ -5,7 +5,7 @@ import { HydrateClient } from "@/trpc/server";
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import { Editor, EditorError, EditorLoading } from "@/features/editor/components/editor";
-import { EditorHeader } from "@/features/workflows/components/editor-header";
+import { EditorHeader } from "@/features/editor/components/editor-header";
 
 interface PageProps{
     params: Promise<{
